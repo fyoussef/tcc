@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +11,31 @@
         <h1>Bem vindo!</h1>
     </header>
     <main>
-        <form id="g-search-form" onsubmit="search(this, event)">
-            <input type="text" class="g-input-search" name="input">
-            <button class="g-search-btn">Buscar</button>
-        </form>
+        <div class="g-box">
+            <form id="g-search-form" onsubmit="search(this, event)">
+                <!-- <input oninput="displayErrorMessage(false)" type="text" class="g-input-search" name="input"> -->
+                <button class="g-search-btn">Buscar</button>
+            </form>
+            <small class="g-error-msg">Digite no campo de pesquisa para fazer uma busca!</small>
+        </div>
+        <section class="g-table-section">
+            <table class="g-table" style="border-collapse: collapse;">
+                <thead>
+                    <tr style="height: 4rem;">
+                        <th style="text-align: left; border-bottom: 1px solid var(--text);">Date</th>
+                        <th style="text-align: left; border-bottom: 1px solid var(--text);">Adj. Close</th>
+                        <th style="text-align: left; border-bottom: 1px solid var(--text);">Close</th>
+                        <th style="text-align: left; border-bottom: 1px solid var(--text);">Exchange</th>
+                        <th style="text-align: left; border-bottom: 1px solid var(--text);">High</th>
+                        <th style="text-align: left; border-bottom: 1px solid var(--text);">Low</th>
+                        <th style="text-align: left; border-bottom: 1px solid var(--text);">Open</th>
+                        <th style="text-align: left; border-bottom: 1px solid var(--text);">Ticker</th>
+                        <th style="text-align: left; border-bottom: 1px solid var(--text);">Volume</th>
+                    </tr>
+                </thead>
+                <tbody class="g-table-body"></tbody>
+            </table>
+        </section>
     </main>
     <script src="script.js"></script>
 </body>

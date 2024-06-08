@@ -55,9 +55,41 @@ form {
 
 .g-search-btn {
     width: 8rem;
+    height: 4rem;
     background-color: var(--text);
     color: var(--background);
     font-size: 1rem;
     font-weight: bold;
     border-radius: .75rem;
+}
+
+.g-box {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.g-error-msg {
+    text-align: center;
+    color: tomato;
+    font-weight: 700;
+    display: none;
+}
+
+.g-table-section {
+    padding: 4rem;
+    width: 100%;
+}
+
+.g-table {
+    width: 100%;
+}
+
+.g-table-tada {
+    height: 4rem;
+    border-bottom: 1px solid var(--text);
+}
+
+.g-table-row-tada:hover {
+    background-color: #fafafa08;
 }
