@@ -1,7 +1,6 @@
 import http from 'node:http';
 import path from 'node:path';
 import fs from 'node:fs'
-import os from 'node:os'
 
 const sendFile = (res, filePath, contentType) => {
     fs.readFile(filePath, (err, content) => {
@@ -51,50 +50,16 @@ const toJSON = (input) => {
     return JSON.stringify(result);
 }
 
-function cpuAverage() {
-    const cpus = os.cpus();
-    let totalIdle = 0;
-    let totalTick = 0;
-    cpus.forEach(core => {
-        totalIdle += core.times.idle;
-        for (const type in core.times) {
-        totalTick += core.times[type];
-        }
-    });
-    const averageIdle = totalIdle / cpus.length;
-    const averageTotal = totalTick / cpus.length;
-    return {
-        idle: averageIdle,
-        total: averageTotal
-    };
-}
-  
-function getCPUUsage() {
-    const startMeasure = cpuAverage();
-    return new Promise(resolve => {
-        setTimeout(() => {
-        const endMeasure = cpuAverage();
-        const idleDifference = endMeasure.idle - startMeasure.idle;
-        const totalDifference = endMeasure.total - startMeasure.total;
-        const percentageCPU = 100 - Math.floor((100 * idleDifference) / totalDifference);
-        resolve(percentageCPU);
-        }, 1000);
-    });
-}
-
-const server = http.createServer(async (req, res) => {
-    if (req.url.includes('/api/location')) {
+const server = http.createServer((req, res) => {
+    if (req.url.includes('/api')) {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET');
         res.setHeader('Access-Control-Allow-Headers', 'content-type');
         const url = new URL('http://localhost:3000' + req.url);
-        const location = url.searchParams.get('search');
         res.writeHead(200, { 'Content-Type': 'application/json' });
         const content = fs.readFileSync("../public/480_000.txt").toString();
-        const memoryData = process.memoryUsage();      
-        const usage = await getCPUUsage();  
-        console.log('memoryData', formatMemoryUsage(memoryData.heapUsed))
-        console.log('usage', usage)
+        console.log('memoryData', formatMemoryUsage(process.memoryUsage.rss()))
+        console.log('usage', process.cpuUsage())
         return res.end(toJSON(content))
     }
     handleServeFiles(req, res);
