@@ -1,6 +1,6 @@
 import http from 'node:http';
 import path from 'node:path';
-import fs, { createReadStream, readFileSync } from 'node:fs'
+import fs from 'node:fs'
 
 const sendFile = (res, filePath, contentType) => {
     fs.readFile(filePath, (err, content) => {
@@ -56,7 +56,7 @@ const server = http.createServer((req, res) => {
         const url = new URL('http://localhost:3000' + req.url);
         const location = url.searchParams.get('search');
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        const content = readFileSync("public/100.txt").toString();
+        const content = fs.readFileSync("public/100.txt").toString();
         return res.end(format(content))
     }
     
