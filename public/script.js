@@ -7,16 +7,10 @@ const search = async (form, event) => {
     event.preventDefault();
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    // if (!data.input) {
-    //    return displayErrorMessage(true);
-    // }
     const response = await fetch(`https://3000-fyoussef-tcc-465yk3tfwa3.ws-us114.gitpod.io//api/location?search=${data.input}`);
-    console.log('start', new Date());
     const jsonData = await response.json();
-    console.log('end', new Date());
-    console.log('jsonData', jsonData);
     const tableBody = document.querySelector(".g-table-body")
-    for (let i = 0; i < jsonData.length; i++) {
+    for (let i = 0; i < jsonData.slice(0, 100).length; i++) {
         const data = jsonData[i];
         tableBody.innerHTML += 
         `<tr class="g-table-row-tada">
@@ -31,4 +25,5 @@ const search = async (form, event) => {
             <td class="g-table-tada">${data.volume}</td>
         </tr>`
     }
+    console.log('response')
 }
